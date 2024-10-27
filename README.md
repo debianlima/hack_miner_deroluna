@@ -179,51 +179,42 @@ done
 </ul>
 
 <h2>Estrutura do Script</h2>
-<p>
-    O script realiza as seguintes etapas:
-</p>
+<p>O script realiza as seguintes etapas:</p>
+
 <ol>
-    <li><strong>Inicialização da Sessão cURL:</strong> O script inicia uma sessão cURL para se conectar ao endpoint da API do Deroluna e solicitar estatísticas.</li>
-    <pre><code>$url = 'http://localhost:44001/stats';
-$ch = curl_init($url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_HEADER, false);
-</code></pre>
-
-    <li><strong>Execução da Requisição:</strong> Os dados são obtidos a partir da API, e caso haja falha, uma mensagem de erro será exibida.</li>
-    <pre><code>$response = curl_exec($ch);
-if (!$response) {
-    die('Erro: '.curl_error($ch));
-}
-</code></pre>
-
-    <li><strong>Processamento da Resposta:</strong> Os dados retornados são processados e formatados.</li>
-    <pre><code>$stats = json_decode($response, true);
-$hashrate = $stats['hashrate'] ?? 0;
-$uptime = $stats['uptime'] ?? 0;
-// E assim por diante...
-</code></pre>
-
-    <li><strong>Exibição das Estatísticas:</strong> As estatísticas processadas são exibidas no terminal com formatação colorida.</li>
-    <pre><code>echo "Hashrate: ".Log::wrap($hashrate, "green")."\n";
-echo "Uptime: ".Log::wrap($uptime, "blue")."\n";
-</code></pre>
+    <li>
+        <strong>Inicialização da Sessão cURL</strong>:<br>
+        O script inicia uma sessão cURL para se conectar ao endpoint da API do Deroluna e solicitar estatísticas.
+        <pre><code>$url = 'http://localhost:44001/stats';<br>$ch = curl_init($url);<br>curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);<br>curl_setopt($ch, CURLOPT_HEADER, false);</code></pre>
+    </li>
+    <li>
+        <strong>Execução da Requisição</strong>:<br>
+        Os dados são recuperados através da execução da requisição cURL.
+        <pre><code>$stats_raw = curl_exec($ch);</code></pre>
+    </li>
+    <li>
+        <strong>Tratamento de Erros</strong>:<br>
+        Se ocorrer um erro, o script exibe uma mensagem de erro apropriada.
+        <pre><code>if (curl_errno($ch) || empty($stats_raw)) {<br>&nbsp;&nbsp;echo "\033[33mFailed to read miner from $url\033[0m\n";<br>}</code></pre>
+    </li>
+    <li>
+        <strong>Processamento de Dados</strong>:<br>
+        Os dados brutos são processados e convertidos em um array associativo, facilitando a análise.
+        <pre><code>$stats_array = explode(" ", trim($stats_raw));</code></pre>
+    </li>
+    <li>
+        <strong>Formato de Saída</strong>:<br>
+        Os dados são formatados em um array PHP, apresentando as informações relevantes.
+        <pre><code>return [<br>&nbsp;&nbsp;'uptime' => (int)$uptime,<br>&nbsp;&nbsp;'speed' => [<br>&nbsp;&nbsp;&nbsp;&nbsp;'total' => (float)$hs,<br>&nbsp;&nbsp;],<br>&nbsp;&nbsp;'shares' => [<br>&nbsp;&nbsp;&nbsp;&nbsp;'total' => (int)$acc,<br>&nbsp;&nbsp;&nbsp;&nbsp;'reject' => (int)$rej,<br>&nbsp;&nbsp;&nbsp;&nbsp;'invalid' => 0,<br>&nbsp;&nbsp;],<br>];</code></pre>
+    </li>
 </ol>
 
+<h2>Exemplo de Uso</h2>
+<p>Ao executar o script, o resultado será um array PHP formatado assim:</p>
+<pre><code>Array<br>(<br>&nbsp;&nbsp;[uptime] => 41<br>&nbsp;&nbsp;[speed] => Array<br>(&nbsp;&nbsp;&nbsp;&nbsp;[total] => 27124.40<br>        )<br>&nbsp;&nbsp;[shares] => Array<br>(&nbsp;&nbsp;&nbsp;&nbsp;[total] => 827<br>&nbsp;&nbsp;&nbsp;&nbsp;[reject] => 51<br>&nbsp;&nbsp;&nbsp;&nbsp;[invalid] => 0<br>        )<br>)</code></pre>
+
 <h2>Contribuições</h2>
-<p>
-    Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests para melhorias e correções.
-</p>
+<p>Sinta-se à vontade para contribuir com melhorias, correções ou novas funcionalidades. Para contribuir, faça um fork deste repositório, crie uma nova branch e envie um pull request.</p>
 
 <h2>Licença</h2>
-<p>
-    Este projeto é licenciado sob a Licença MIT. Consulte o arquivo LICENSE para mais detalhes.
-</p>
-
-<h2>Contatos</h2>
-<p>
-    Para dúvidas ou sugestões, entre em contato com o autor:
-    <ul>
-        <li>Email: <a href="mailto:seuemail@example.com">seuemail@example.com</a></li>
-    </ul>
-</p>
+<p>Este projeto está licenciado sob a MIT License - veja o arquivo <a href="LICENSE">LICENSE</a> para detalhes.</p>
