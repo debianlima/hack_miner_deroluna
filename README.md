@@ -2,7 +2,7 @@
 
 <h2>Visão Geral</h2>
 <p>
-    O Hack Miner é uma modificação do Astrominer do MinerOS que perimite  monitorar o DeroLuna utilizando a API do MinerOS. Este script permite a coleta de estatísticas em tempo real sobre o desempenho dos minerador, facilitando a análise e otimização das operações de mineração.
+    O Hack Miner é uma modificação do Astrominer do MinerOS que permite  monitorar o DeroLuna utilizando a API do MinerOS. Este script permite a coleta de estatísticas em tempo real sobre o desempenho dos minerador, facilitando a análise e otimização das operações de mineração.
 </p>
 
 <p>
