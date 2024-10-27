@@ -1,8 +1,8 @@
-<h1>Hack Miner - Modificação do Mineros para Deroluna</h1>
+<h1>Hack Miner - Modificação do MinerOS para Monitoramento do Deroluna</h1>
 
 <h2>Visão Geral</h2>
 <p>
-    O Hack Miner é um script modificado do Mineros projetado para monitorar mineradores de criptomoedas utilizando a API do Deroluna. Este script permite a coleta de estatísticas em tempo real sobre o desempenho dos mineradores, facilitando a análise e otimização das operações de mineração.
+    O Hack Miner é uma modificação do Astrominer do MinerOS que perimite  monitorar o DerLuna utilizando a API do MinerOS. Este script permite a coleta de estatísticas em tempo real sobre o desempenho dos minerador, facilitando a análise e otimização das operações de mineração.
 </p>
 
 <p>
@@ -10,7 +10,7 @@
 </p>
 
 <p>
-    Assim, é necessário reiniciar o MinerOS para ativar o modo. Após reiniciar, execute a <code>screen client</code>; nela deverá conter a advertência:
+    Assim, é necessário reiniciar o MinerOS para ativar o modo. Após reiniciar, execute a screen <code> client</code>; nela deverá conter a advertência:
 </p>
 <blockquote>
     Sync WARNING Synchronization disabled by hack.txt SKIP_SYNC=1
