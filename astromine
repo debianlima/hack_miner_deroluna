@@ -1,0 +1,37 @@
+
+#!/bin/bash
+
+# Definir valores padrão
+# POOL="community-pools.mysrv.cloud:10300"
+# WALLET="dero1qy3wt54g5p2reegnjx4m9dy3y0dwwdxfhalegenws20r80r885chjqgucq3t2"
+API_LISTEN="127.0.0.1:44001"
+
+# Verificar e capturar parâmetros da linha de comando
+if [[ $@ =~ -r[[:space:]]+([^[:space:]]+) ]]; then
+    POOL="${BASH_REMATCH[1]}"
+fi
+
+if [[ $@ =~ -w[[:space:]]+([^[:space:]]+) ]]; then
+    WALLET="${BASH_REMATCH[1]}"
+fi
+
+# Função para mostrar uso do script
+usage() {
+    echo "Uso: $0 [-r POOL] [-w WALLET]"
+    echo "  -r POOL     Especifica o pool de mineração (padrão: $POOL)"
+    echo "  -w WALLET   Especifica o endereço da carteira (padrão: $WALLET)"
+    exit 1
+}
+
+# Montar a linha de comando final
+cmd="./deroluna -w $WALLET -d $POOL --api-listen $API_LISTEN"
+
+echo "Iniciando o deroluna com o seguinte comando:"
+echo "$cmd"
+
+# Executar o comando em um loop infinito
+while :
+do
+    $cmd
+    sleep 1
+done
